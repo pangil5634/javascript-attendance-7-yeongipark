@@ -55,14 +55,21 @@ export class AttendanceService {
     if (originName === false) {
       return;
     }
+
     if (this.checkName(originName) === false) {
       return;
     }
+
     if (this.checkAttend(originName) === false) {
       return;
     }
+
     const originTime = await this.readTime();
     if (originTime === false) {
+      return;
+    }
+
+    if (this.checkTime(originTime) === false) {
       return;
     }
   }
@@ -113,6 +120,20 @@ export class AttendanceService {
     }
     if (!timeRegex.test(time)) {
       OutputView.printError('형식에 맞지 않습니다. (HH:RR)');
+      return false;
+    }
+  }
+
+  checkTime(time) {
+    const [hour, min] = time.split(':').map(Number);
+
+    if (hour < 8) {
+      OutputView.printError('운영 시간이 아닙니다. (HH:RR)');
+      return false;
+    }
+
+    if (hour >= 23) {
+      OutputView.printError('운영 시간이 아닙니다. (HH:RR)');
       return false;
     }
   }
