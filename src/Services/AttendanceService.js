@@ -164,6 +164,20 @@ export class AttendanceService {
     }
 
     const originDay = await this.readDay();
+    if (originDay === false) {
+      return;
+    }
+
+    const originTime = await this.readTime();
+    if (originTime === false) {
+      return;
+    }
+
+    if (this.checkTime(originTime) === false) {
+      return;
+    }
+
+    return [originName, originDay, originTime];
   }
 
   async readDay() {

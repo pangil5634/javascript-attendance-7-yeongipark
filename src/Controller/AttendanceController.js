@@ -21,7 +21,8 @@ export class AttendanceController {
     }
   }
   async step2() {
-    const reuslt = await this.#attendanceService.readNameAndDateAndTime();
+    const result = await this.#attendanceService.readNameAndDateAndTime();
+    console.log(result);
   }
   step3() {
     console.log('step3');
