@@ -6,6 +6,7 @@ export class DateService {
 
   constructor() {
     this.#date = new DateModel();
+    this.#date.createDateByNow();
   }
 
   getToday() {

@@ -2,13 +2,25 @@ export class DateModel {
   #year;
   #month;
   #day;
+  #time;
   #label;
 
-  constructor() {
-    this.createDate();
+  createDateByString(string) {
+    const [date, time] = string.split(' ');
+    const dateArr = date.split('-');
+
+    this.#year = dateArr[0];
+    this.#month = dateArr[1];
+    this.#day = dateArr[2];
+
+    const DAY_LIST = ['일', '월', '화', '수', '목', '금', '토'];
+    const dayOfWeek = new Date(date).getDay();
+    this.#label = DAY_LIST[dayOfWeek];
+
+    this.#time = time;
   }
 
-  createDate() {
+  createDateByNow() {
     const today = new Date();
 
     // 연
@@ -21,12 +33,12 @@ export class DateModel {
     this.#day = ('0' + today.getDate()).slice(-2);
 
     // 요일
-    const dayList = ['일', '월', '화', '수', '목', '금', '토'];
+    const DAY_LIST = ['일', '월', '화', '수', '목', '금', '토'];
 
     const dayOfWeek = new Date(
       this.#year + '-' + this.#month + '-' + this.#day,
     ).getDay();
-    this.#label = dayList[dayOfWeek];
+    this.#label = DAY_LIST[dayOfWeek];
   }
 
   getDateKorean() {
@@ -35,6 +47,10 @@ export class DateModel {
 
   get label() {
     return this.#label;
+  }
+
+  get day() {
+    return this.#day;
   }
 
   checkAttendDay() {

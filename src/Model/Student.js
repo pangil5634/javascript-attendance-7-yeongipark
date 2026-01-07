@@ -1,3 +1,5 @@
+import { DateModel } from './Date.js';
+
 export class Student {
   #name;
   #attendList = [];
@@ -14,5 +16,16 @@ export class Student {
 
   get name() {
     return this.#name;
+  }
+
+  checkAttendToday() {
+    const date = new DateModel();
+    date.createDateByNow();
+
+    for (const attend of this.#attendList) {
+      if (attend.day === date.day) {
+        return false;
+      }
+    }
   }
 }
