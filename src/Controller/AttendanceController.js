@@ -8,8 +8,9 @@ export class AttendanceController {
     this.#attendanceService = new AttendanceService();
     this.#dateController = new DateController();
   }
-  step1() {
+  async step1() {
     this.#dateController.checkToday();
+    await this.#attendanceService.readName();
   }
   step2() {
     console.log('step2');

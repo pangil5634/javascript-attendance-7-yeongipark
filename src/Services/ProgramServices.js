@@ -33,8 +33,8 @@ export class ProgramService {
     return true;
   }
 
-  step1() {
-    this.#attendanceController.step1();
+  async step1() {
+    await this.#attendanceController.step1();
   }
   step2() {
     this.#attendanceController.step2();

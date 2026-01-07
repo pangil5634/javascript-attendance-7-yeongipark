@@ -4,4 +4,8 @@ export class InputView {
   static getStep() {
     return Console.readLineAsync('');
   }
+
+  static getName() {
+    return Console.readLineAsync('닉네임을 입력해 주세요.\n');
+  }
 }

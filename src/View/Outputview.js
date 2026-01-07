@@ -16,4 +16,8 @@ export class OutputView {
   static printError(error) {
     Console.print(`[ERROR] ${error}\n`);
   }
+
+  static changeLine() {
+    Console.print('');
+  }
 }

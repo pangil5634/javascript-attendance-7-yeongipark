@@ -1,4 +1,5 @@
 import { ProgramService } from '../Services/ProgramServices.js';
+import { OutputView } from '../View/Outputview.js';
 import { DateController } from './DateController.js';
 
 export class ProgramController {
@@ -16,10 +17,11 @@ export class ProgramController {
     this.#programService.printTodayInfo(this.#today);
     do {
       this.#step = await this.#programService.getStep();
+      OutputView.changeLine();
       switch (this.#step) {
         case '1':
           // 1. 출석 확인
-          this.#programService.step1();
+          await this.#programService.step1();
           break;
         case '2':
           // 2. 출석 수정
