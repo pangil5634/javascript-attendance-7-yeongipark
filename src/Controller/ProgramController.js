@@ -14,6 +14,8 @@ export class ProgramController {
 
   async play() {
     this.#programService.printTodayInfo(this.#today);
-    this.#step = await this.#programService.getStep();
+    do {
+      this.#step = await this.#programService.getStep();
+    } while (this.#step !== 'q' && this.#step !== 'Q');
   }
 }

@@ -17,7 +17,7 @@ export class ProgramService {
   }
 
   validateStep(step) {
-    const STEP_LIST = ['1', '2', '3', '4', 'q'];
+    const STEP_LIST = ['1', '2', '3', '4', 'q', 'Q'];
 
     if (!STEP_LIST.includes(step)) {
       OutputView.printError('잘못된 기능을 입력했습니다.');
