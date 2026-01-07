@@ -1,7 +1,13 @@
+import { AttendanceController } from '../Controller/AttendanceController.js';
 import { InputView } from '../View/InputView.js';
 import { OutputView } from '../View/Outputview.js';
 
 export class ProgramService {
+  #attendanceController;
+  constructor() {
+    this.#attendanceController = new AttendanceController();
+  }
+
   printTodayInfo(today) {
     OutputView.printTodayInfo(today);
   }
@@ -25,5 +31,18 @@ export class ProgramService {
     }
 
     return true;
+  }
+
+  step1() {
+    this.#attendanceController.step1();
+  }
+  step2() {
+    this.#attendanceController.step2();
+  }
+  step3() {
+    this.#attendanceController.step3();
+  }
+  step4() {
+    this.#attendanceController.step4();
   }
 }
