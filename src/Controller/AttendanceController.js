@@ -20,8 +20,8 @@ export class AttendanceController {
       this.#attendanceService.saveAttend(name, time);
     }
   }
-  step2() {
-    console.log('step2');
+  async step2() {
+    const reuslt = await this.#attendanceService.readNameAndDateAndTime();
   }
   step3() {
     console.log('step3');

@@ -148,4 +148,19 @@ export class AttendanceService {
 
     OutputView.changeLine();
   }
+
+  /*
+    2. 출석 수정
+  */
+
+  async readNameAndDateAndTime() {
+    const originName = await this.readName();
+    if (originName === false) {
+      return;
+    }
+
+    if (this.checkName(originName) === false) {
+      return;
+    }
+  }
 }

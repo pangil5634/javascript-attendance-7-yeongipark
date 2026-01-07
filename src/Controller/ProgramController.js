@@ -25,7 +25,7 @@ export class ProgramController {
           break;
         case '2':
           // 2. 출석 수정
-          this.#programService.step2();
+          await this.#programService.step2();
           break;
         case '3':
           // 3. 크루별 출석 기록 확인
