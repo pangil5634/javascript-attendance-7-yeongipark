@@ -11,4 +11,8 @@ export class Student {
     console.log(this.#name);
     console.log(this.#attendList);
   }
+
+  get name() {
+    return this.#name;
+  }
 }

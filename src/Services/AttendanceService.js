@@ -2,11 +2,9 @@ import fs from 'fs';
 import { Student } from '../Model/Student.js';
 
 import { InputView } from '../View/InputView.js';
+import { OutputView } from '../View/Outputview.js';
 export class AttendanceService {
   #studentList = [];
-  async readName() {
-    const originName = await InputView.getName();
-  }
 
   loadData() {
     const file = fs.readFileSync('./public/attendances.csv', 'utf-8');
@@ -30,7 +28,6 @@ export class AttendanceService {
       const attend = data[1];
 
       const user = resultArr.find((attend) => attend.name === name);
-
       if (!user) {
         const attendArr = [];
         attendArr.push(attend);
@@ -46,6 +43,19 @@ export class AttendanceService {
     for (const user of resultArr) {
       const student = new Student(user.name, user.attend);
       this.#studentList.push(student);
+    }
+  }
+
+  async readName() {
+    const originName = await InputView.getName();
+    this.checkName(originName);
+  }
+
+  checkName(originName) {
+    const user = this.#studentList.find((user) => user.name === originName);
+
+    if (!user) {
+      OutputView.printError('등록되지 않은 사용자입니다.');
     }
   }
 }
