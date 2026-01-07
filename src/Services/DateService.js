@@ -1,25 +1,20 @@
+import { DateModel } from '../Model/Date.js';
+import { OutputView } from '../View/Outputview.js';
+
 export class DateService {
+  #date;
+
+  constructor() {
+    this.#date = new DateModel();
+  }
+
   getToday() {
-    const today = new Date();
+    return this.#date.getDateKorean();
+  }
 
-    // 연
-    const year = today.getFullYear();
-
-    // 월
-    const month = ('0' + (today.getMonth() + 1)).slice(-2);
-
-    // 일
-    const day = ('0' + today.getDate()).slice(-2);
-
-    // 요일
-    const dayList = ['일', '월', '화', '수', '목', '금', '토'];
-
-    const dayOfWeek = new Date(year + '-' + month + '-' + day).getDay();
-    const label = dayList[dayOfWeek];
-
-    // 문자
-    const dateString = month + '월 ' + day + '일 ' + label + '요일';
-
-    return dateString;
+  checkToday() {
+    if (!this.#date.checkAttendDay() || this.#date.checkSpecialDay()) {
+      OutputView.printError('오늘은 출석 가능한 날이 아닙니다.');
+    }
   }
 }
