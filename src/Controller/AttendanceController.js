@@ -13,7 +13,12 @@ export class AttendanceController {
 
   async step1() {
     this.#dateController.checkToday();
-    await this.#attendanceService.readNameAndTime();
+    const result = await this.#attendanceService.readNameAndTime();
+    if (result) {
+      const name = result[0];
+      const time = result[1];
+      this.#attendanceService.saveAttend(name, time);
+    }
   }
   step2() {
     console.log('step2');

@@ -72,6 +72,8 @@ export class AttendanceService {
     if (this.checkTime(originTime) === false) {
       return;
     }
+
+    return [originName, originTime];
   }
 
   async readName() {
@@ -136,5 +138,14 @@ export class AttendanceService {
       OutputView.printError('운영 시간이 아닙니다. (HH:RR)');
       return false;
     }
+  }
+
+  saveAttend(name, time) {
+    const user = this.#studentList.find((user) => user.name === name);
+    const date = new DateModel();
+    date.createNewAttend(time);
+    user.addAttend(date);
+
+    OutputView.changeLine();
   }
 }

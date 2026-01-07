@@ -4,6 +4,26 @@ export class DateModel {
   #day;
   #time;
   #label;
+  #status;
+
+  getDateInfo() {
+    return (
+      this.#month +
+      '월 ' +
+      this.#day +
+      '일 ' +
+      this.#label +
+      '요일 ' +
+      this.#time +
+      ' (' +
+      this.#status +
+      ')'
+    );
+  }
+  createNewAttend(time) {
+    this.createDateByNow();
+    this.#time = time;
+  }
 
   createDateByString(string) {
     const [date, time] = string.split(' ');

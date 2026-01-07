@@ -28,4 +28,8 @@ export class Student {
       }
     }
   }
+
+  addAttend(date) {
+    this.#attendList.push(date);
+  }
 }
