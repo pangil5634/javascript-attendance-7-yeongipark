@@ -4,10 +4,13 @@ import { DateController } from './DateController.js';
 export class AttendanceController {
   #attendanceService;
   #dateController;
+
   constructor() {
     this.#attendanceService = new AttendanceService();
     this.#dateController = new DateController();
+    this.#attendanceService.loadData();
   }
+
   async step1() {
     this.#dateController.checkToday();
     await this.#attendanceService.readName();

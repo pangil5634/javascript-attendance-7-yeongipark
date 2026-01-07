@@ -4,6 +4,7 @@ import { OutputView } from '../View/Outputview.js';
 
 export class ProgramService {
   #attendanceController;
+
   constructor() {
     this.#attendanceController = new AttendanceController();
   }

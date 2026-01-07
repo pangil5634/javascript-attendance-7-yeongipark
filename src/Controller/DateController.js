@@ -1,17 +1,17 @@
 import { DateService } from '../Services/DateService.js';
 
 export class DateController {
-  #dataService;
+  #dateService;
 
   constructor() {
-    this.#dataService = new DateService();
+    this.#dateService = new DateService();
   }
 
   getToday() {
-    return this.#dataService.getToday();
+    return this.#dateService.getToday();
   }
 
   checkToday() {
-    this.#dataService.checkToday();
+    this.#dateService.checkToday();
   }
 }
