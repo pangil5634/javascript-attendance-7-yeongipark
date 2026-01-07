@@ -20,7 +20,6 @@ export class DateService {
     // 문자
     const dateString = month + '월 ' + day + '일 ' + label + '요일';
 
-    console.log(dateString);
     return dateString;
   }
 }
