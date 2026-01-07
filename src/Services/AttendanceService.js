@@ -50,20 +50,24 @@ export class AttendanceService {
     }
   }
 
-  async readName() {
-    const originName = await this.readUserName();
+  async readNameAndTime() {
+    const originName = await this.readName();
     if (originName === false) {
       return;
     }
     if (this.checkName(originName) === false) {
       return;
     }
-    if (!this.checkAttend(originName)) {
+    if (this.checkAttend(originName) === false) {
+      return;
+    }
+    const originTime = await this.readTime();
+    if (originTime === false) {
       return;
     }
   }
 
-  async readUserName() {
+  async readName() {
     const originName = await InputView.getName();
     if (this.validateName(originName) === false) {
       return false;
@@ -87,8 +91,28 @@ export class AttendanceService {
   }
   checkAttend(originName) {
     const user = this.#studentList.find((user) => user.name === originName);
-    if (!user.checkAttendToday()) {
+    if (user.checkAttendToday() === false) {
       OutputView.printError('이미 출석이 완료된 상태입니다.');
+      return false;
+    }
+  }
+
+  async readTime() {
+    const originTime = await InputView.getTime();
+    if (this.validateTime(originTime) === false) {
+      return false;
+    }
+    return originTime;
+  }
+
+  validateTime(time) {
+    const timeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;
+    if (!time) {
+      OutputView.printError('시간을 입력해주세요.');
+      return false;
+    }
+    if (!timeRegex.test(time)) {
+      OutputView.printError('형식에 맞지 않습니다. (HH:RR)');
       return false;
     }
   }

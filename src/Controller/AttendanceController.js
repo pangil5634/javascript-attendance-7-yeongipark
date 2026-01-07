@@ -13,7 +13,7 @@ export class AttendanceController {
 
   async step1() {
     this.#dateController.checkToday();
-    await this.#attendanceService.readName();
+    await this.#attendanceService.readNameAndTime();
   }
   step2() {
     console.log('step2');
