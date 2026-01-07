@@ -162,5 +162,42 @@ export class AttendanceService {
     if (this.checkName(originName) === false) {
       return;
     }
+
+    const originDay = await this.readDay();
+  }
+
+  async readDay() {
+    const originDay = await InputView.getDay();
+    if (this.validateDay(originDay) === false) {
+      return false;
+    }
+    return originDay;
+  }
+
+  validateDay(day) {
+    if (!day) {
+      OutputView.printError('요일을 입력해주세요.');
+      return false;
+    }
+
+    if (isNaN(day)) {
+      OutputView.printError('숫자로 요일을 입력해주세요.');
+      return false;
+    }
+
+    const date = new DateModel();
+    date.createDateByNow();
+    const updateDay = Number(day);
+    const nowDay = Number(date.day);
+
+    if (updateDay < 0) {
+      OutputView.printError('올바른 범위의 요일을 입력해주세요.');
+      return false;
+    }
+
+    if (updateDay >= nowDay) {
+      OutputView.printError('수정 불가능한 요일입니다.');
+      return false;
+    }
   }
 }
