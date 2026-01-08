@@ -234,5 +234,12 @@ export class AttendanceService {
     if (this.checkName(originName) === false) {
       return;
     }
+
+    this.printAllAttend(originName);
+  }
+
+  printAllAttend(name) {
+    const user = this.#studentList.find((user) => user.name === name);
+    user.printAllAttend();
   }
 }

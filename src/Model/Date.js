@@ -83,6 +83,10 @@ export class DateModel {
     return this.#day;
   }
 
+  get status() {
+    return this.#status;
+  }
+
   checkAttendDay() {
     const ATTEND_DAYS = ['월', '화', '수', '목', '금'];
     if (ATTEND_DAYS.includes(this.#label)) {
