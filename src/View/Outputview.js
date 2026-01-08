@@ -20,4 +20,8 @@ export class OutputView {
   static changeLine() {
     Console.print('');
   }
+
+  static printWarningResult() {
+    Console.print('제적 위험자 조회 결과\n');
+  }
 }

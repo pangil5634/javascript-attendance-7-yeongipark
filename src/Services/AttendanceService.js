@@ -1,9 +1,10 @@
-import fs from 'fs';
+import fs, { stat } from 'fs';
 import { Student } from '../Model/Student.js';
 
 import { InputView } from '../View/InputView.js';
 import { OutputView } from '../View/Outputview.js';
 import { DateModel } from '../Model/Date.js';
+import { Console } from '@woowacourse/mission-utils';
 export class AttendanceService {
   #studentList = [];
 
@@ -241,5 +242,34 @@ export class AttendanceService {
   printAllAttend(name) {
     const user = this.#studentList.find((user) => user.name === name);
     user.printAllAttend();
+  }
+
+  /*
+    4. 제적 위험자 조회 결과
+  */
+  printWarningResult() {
+    OutputView.printWarningResult();
+
+    const sorted = this.#studentList.map((student) =>
+      this.getStudentInfo(student),
+    );
+
+    sorted.sort((a, b) => b[1] - a[1]);
+    for (const student of sorted) {
+      if (student[4])
+        Console.print(
+          `${student[0]}: 결석 ${student[2]}회, 지각 ${student[3]}회 (${student[4]})`,
+        );
+    }
+
+    OutputView.changeLine();
+  }
+
+  getStudentInfo(student) {
+    const [name, absenc, late, status] = student.getWarningDataSet();
+    const lateToAbsence = late / 3;
+    const totalAbsence = Math.floor(absenc + lateToAbsence);
+
+    return [name, totalAbsence, absenc, late, status];
   }
 }

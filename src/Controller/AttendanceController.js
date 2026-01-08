@@ -33,6 +33,6 @@ export class AttendanceController {
     await this.#attendanceService.printAllAttendByPerson();
   }
   step4() {
-    console.log('step4');
+    this.#attendanceService.printWarningResult();
   }
 }

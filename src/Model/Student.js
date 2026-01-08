@@ -5,10 +5,17 @@ import { OutputView } from '../View/Outputview.js';
 export class Student {
   #name;
   #attendList = [];
+  #attendance;
+  #late;
+  #absenc;
 
   constructor(name, attendList) {
     this.#name = name;
     this.#attendList = attendList;
+    this.#attendance = 0;
+    this.#late = 0;
+    this.#absenc = 0;
+    this.countAttend();
   }
 
   getStudentInfo() {
@@ -60,11 +67,10 @@ export class Student {
     }
     OutputView.changeLine();
 
-    const [attendance, late, absenc] = this.countAttendStatus();
-    this.printSummary(attendance, late, absenc);
+    this.printSummary();
     OutputView.changeLine();
 
-    const personStatus = this.printPersonStatus(late, absenc);
+    const personStatus = this.printPersonStatus();
 
     const WARNING = ['경고', '면담', '제적'];
     if (WARNING.includes(personStatus)) {
@@ -73,39 +79,34 @@ export class Student {
     }
   }
 
-  countAttendStatus() {
-    let attendance = 0;
-    let late = 0;
-    let absenc = 0;
+  countAttend() {
     for (const attend of this.#attendList) {
       switch (attend.status) {
         case '출석':
-          attendance++;
+          this.#attendance++;
           break;
         case '지각':
-          late++;
+          this.#late++;
           break;
         case '결석':
-          absenc++;
+          this.#absenc++;
           break;
 
         default:
           break;
       }
     }
-    OutputView.changeLine();
-    return [attendance, late, absenc];
   }
 
-  printSummary(attendance, late, absenc) {
-    Console.print(`출석: ${attendance}회`);
-    Console.print(`지각: ${late}회`);
-    Console.print(`결석: ${absenc}회`);
+  printSummary() {
+    Console.print(`출석: ${this.#attendance}회`);
+    Console.print(`지각: ${this.#late}회`);
+    Console.print(`결석: ${this.#absenc}회`);
   }
 
-  printPersonStatus(late, absenc) {
-    const lateToAbsence = late / 3;
-    const totalAbsence = absenc + lateToAbsence;
+  printPersonStatus() {
+    const lateToAbsence = this.#late / 3;
+    const totalAbsence = this.#absenc + lateToAbsence;
 
     if (totalAbsence >= 5) {
       return '제적';
@@ -116,5 +117,9 @@ export class Student {
     if (totalAbsence >= 2) {
       return '경고';
     }
+  }
+
+  getWarningDataSet() {
+    return [this.#name, this.#absenc, this.#late, this.printPersonStatus()];
   }
 }
