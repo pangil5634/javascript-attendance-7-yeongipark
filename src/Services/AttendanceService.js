@@ -221,4 +221,18 @@ export class AttendanceService {
 
     OutputView.changeLine();
   }
+
+  /*
+    3. 크루 별 출석 기록 확인
+  */
+  async printAllAttendByPerson() {
+    const originName = await this.readName();
+    if (originName === false) {
+      return;
+    }
+
+    if (this.checkName(originName) === false) {
+      return;
+    }
+  }
 }

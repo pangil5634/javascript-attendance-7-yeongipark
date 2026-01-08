@@ -29,7 +29,7 @@ export class ProgramController {
           break;
         case '3':
           // 3. 크루별 출석 기록 확인
-          this.#programService.step3();
+          await this.#programService.step3();
           break;
         case '4':
           // 4. 제적 위험자 확인

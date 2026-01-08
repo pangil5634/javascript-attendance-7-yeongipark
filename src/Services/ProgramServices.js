@@ -40,8 +40,8 @@ export class ProgramService {
   async step2() {
     await this.#attendanceController.step2();
   }
-  step3() {
-    this.#attendanceController.step3();
+  async step3() {
+    await this.#attendanceController.step3();
   }
   step4() {
     this.#attendanceController.step4();

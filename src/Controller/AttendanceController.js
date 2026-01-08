@@ -29,8 +29,8 @@ export class AttendanceController {
       this.#attendanceService.updateAttend(name, date, time);
     }
   }
-  step3() {
-    console.log('step3');
+  async step3() {
+    await this.#attendanceService.printAllAttendByPerson();
   }
   step4() {
     console.log('step4');
