@@ -214,4 +214,11 @@ export class AttendanceService {
       return false;
     }
   }
+
+  updateAttend(name, day, time) {
+    const user = this.#studentList.find((user) => user.name === name);
+    user.updateAttend(day, time);
+
+    OutputView.changeLine();
+  }
 }

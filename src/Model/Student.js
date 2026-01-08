@@ -11,7 +11,9 @@ export class Student {
 
   getStudentInfo() {
     console.log(this.#name);
-    console.log(this.#attendList);
+    for (const attend of this.#attendList) {
+      console.log(attend.getDateInfo());
+    }
   }
 
   get name() {
@@ -31,5 +33,17 @@ export class Student {
 
   addAttend(date) {
     this.#attendList.push(date);
+  }
+
+  updateAttend(day, time) {
+    const findAttend = this.#attendList.find(
+      (attend) => Number(attend.day) === Number(day),
+    );
+
+    const before = findAttend.getDateInfo();
+
+    findAttend.updateTime(time);
+    findAttend.saveStatus();
+    findAttend.printUpdateResult(before);
   }
 }

@@ -1,3 +1,6 @@
+import { Console } from '@woowacourse/mission-utils';
+import { OutputView } from '../View/Outputview.js';
+
 export class DateModel {
   #year;
   #month;
@@ -20,9 +23,12 @@ export class DateModel {
       ')'
     );
   }
+
   createNewAttend(time) {
     this.createDateByNow();
     this.#time = time;
+
+    this.saveStatus();
   }
 
   createDateByString(string) {
@@ -38,6 +44,8 @@ export class DateModel {
     this.#label = DAY_LIST[dayOfWeek];
 
     this.#time = time;
+
+    this.saveStatus();
   }
 
   createDateByNow() {
@@ -59,6 +67,8 @@ export class DateModel {
       this.#year + '-' + this.#month + '-' + this.#day,
     ).getDay();
     this.#label = DAY_LIST[dayOfWeek];
+
+    this.saveStatus();
   }
 
   getDateKorean() {
@@ -84,5 +94,53 @@ export class DateModel {
     if (SPECIAL_DAYS.includes(this.#day)) {
       return true;
     }
+  }
+
+  updateTime(time) {
+    this.#time = time;
+  }
+
+  saveStatus() {
+    if (this.#time) {
+      const [hour, min] = this.#time.split(':').map(Number);
+
+      if (this.#label === '월') {
+        if (hour > 13) {
+          this.#status = '결석';
+          return;
+        }
+        if (hour === 13 && min > 30) {
+          this.#status = '결석';
+          return;
+        }
+        if (hour === 13 && min > 5) {
+          this.#status = '지각';
+          return;
+        }
+        this.#status = '출석';
+        return;
+      }
+
+      if (hour > 10) {
+        this.#status = '결석';
+        return;
+      }
+      if (hour === 10 && min > 30) {
+        this.#status = '결석';
+        return;
+      }
+      if (hour === 10 && min > 5) {
+        this.#status = '지각';
+        return;
+      }
+
+      this.#status = '출석';
+      return;
+    }
+  }
+
+  printUpdateResult(before) {
+    OutputView.changeLine();
+    Console.print(`${before} -> ${this.#time} (${this.#status}) 수정 완료!`);
   }
 }

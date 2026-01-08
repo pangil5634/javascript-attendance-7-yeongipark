@@ -22,7 +22,12 @@ export class AttendanceController {
   }
   async step2() {
     const result = await this.#attendanceService.readNameAndDateAndTime();
-    console.log(result);
+    if (result) {
+      const name = result[0];
+      const date = result[1];
+      const time = result[2];
+      this.#attendanceService.updateAttend(name, date, time);
+    }
   }
   step3() {
     console.log('step3');
